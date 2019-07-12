@@ -1,23 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/11 05:38:17 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/12 10:04:12 by yoouali          ###   ########.fr       */
+/*   Created: 2019/07/12 03:51:47 by yoouali           #+#    #+#             */
+/*   Updated: 2019/07/12 10:12:53 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int		main(int ac, char **av)
+/*
+** freeing the struct 't_pixel***'
+*/
+
+void		free_t_pixel(t_pixel ***pix)
 {
-	if (ac != 2)
+	int		i;
+	int		j;
+
+	i = 0;
+	while (pix[i])
 	{
-		ft_putendl("usage: ./fdf file_name");
-		return (0);
+		j = 0;
+		while (pix[i][j])
+		{
+			free(pix[i][j]);
+			j++;
+		}
+		free(pix[i]);
+		i++;
 	}
-	return (0);
+	free(pix);
+}
+
+/*
+** freeing matrix of char
+*/
+
+void		free_tab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i] || i < len)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 05:22:37 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/11 15:24:27 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/12 10:54:41 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,28 @@
 # include <stdio.h>
 
 /*
-** t_check struct for the function check_fdf 
-** check->line : the number of lines in  the file
-** check->dim  : the number of words in the first line
+** the struct t_pixel has the data to evry point in the map
+** x and y : Coordinates point
+** z : point height
+** col ; point color
 */
-
-typedef	struct		s_check
-{
-	int		line;
-	int		dim;
-}					t_check;
-
 
 typedef	struct		s_pixel
 {
+	int		x;
+	int		y;
 	int		z;
 	int		col;
 }					t_pixel;
 
-
-t_check				*check_fdf(char *str);
-t_pixel				**stock_fdf(t_check *ch, int fd);
+int					count_dim(char *str);
+int					check_fdf(char *str);
+void				free_tab(char **tab);
+void				free_t_pixel(t_pixel ***pix);
+t_pixel				*get_info(char *str, int y,int x);
+void				*get_data_fdf_leak(t_pixel **pix, char **tab);
+t_pixel				**get_data_fdf(char *line, int y, int dim);
+void				*stock_fdf_leak(t_pixel ***fdf, int i, char *line);
+t_pixel				***stock_fdf(char *str, int lines);
 
 # endif
