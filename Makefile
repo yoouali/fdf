@@ -6,7 +6,7 @@
 #    By: yoouali <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/11 05:42:44 by yoouali           #+#    #+#              #
-#    Updated: 2019/07/12 10:06:18 by yoouali          ###   ########.fr        #
+#    Updated: 2019/07/13 03:37:56 by yoouali          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ all : $(NAME)
 $(NAME) :
 	@ make -C libft
 	@ cc -Wall -Wextra -Werror -I /usr/include -o $(NAME) $(SRC) -L /usr/local/lib -lmlx -framework OpenGL -framework appKit
-
 clean :
 	@ make -C libft clean
 

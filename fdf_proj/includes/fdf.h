@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 05:22:37 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/12 10:54:41 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/13 03:37:12 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <fcntl.h>
+# include <stdio.h>
 # include <stdio.h>
 
 /*
@@ -33,6 +34,7 @@ typedef	struct		s_pixel
 	int		col;
 }					t_pixel;
 
+void				free_t_pixel(t_pixel ***pix);
 int					count_dim(char *str);
 int					check_fdf(char *str);
 void				free_tab(char **tab);

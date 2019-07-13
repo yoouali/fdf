@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 03:51:47 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/12 10:12:53 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/13 03:31:36 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		free_tab(char **tab)
 	int		i;
 
 	i = 0;
-	while (tab[i] || i < len)
+	while (tab[i])
 	{
 		free(tab[i]);
 		i++;

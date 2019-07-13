@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 14:43:55 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/12 10:54:46 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/13 03:36:55 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ t_pixel		*get_info(char *str, int y, int x)
 	pix->x = x;
 	pix->y = y;
 	pix->z = ft_atoi(str);
-	if (!(tmp = ft_strchr(str, ',') + 1))
+	if (!(tmp = ft_strchr(str, ',')))
 		pix->col = 0xffffff;
 	else
 	{
-		if (tmp[i] != '0' || tmp[i + 1] != 'x' || !tmp[i + 2])
+		if (tmp[i + 1] != '0' || tmp[i + 2] != 'x' || !tmp[i + 3])
 			pix->col = 0;
 		else
-			pix->col = ft_atoi_base(tmp + i + 2, 16);
+			pix->col = ft_atoi_base(tmp + i + 3, 16);
 	}
 	return (pix);
 }
@@ -74,7 +74,7 @@ t_pixel		**get_data_fdf(char *line, int y, int dim)
 			!(pix = (t_pixel **)malloc(sizeof(t_pixel *) * (dim + 1))))
 		return (get_data_fdf_leak(pix, tab));
 	i = -1;
-	while (tab[i++])
+	while (tab[++i])
 	{
 		if (!(pix[i] = get_info(tab[i], y, i)))
 		{
