@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 14:43:55 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/13 03:36:55 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/15 18:25:29 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_pixel		**get_data_fdf(char *line, int y, int dim)
 			!(pix = (t_pixel **)malloc(sizeof(t_pixel *) * (dim + 1))))
 		return (get_data_fdf_leak(pix, tab));
 	i = -1;
-	while (tab[++i])
+	while (tab[++i] && i < dim)
 	{
 		if (!(pix[i] = get_info(tab[i], y, i)))
 		{
