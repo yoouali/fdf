@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 05:22:37 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/13 03:37:12 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/17 05:30:11 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,28 @@ typedef	struct		s_pixel
 	int		col;
 }					t_pixel;
 
+typedef	struct		s_bres
+{
+	int		dx;
+	int		dy;
+	int		xi;
+	int		yi;
+	int		p;
+}					t_bres;
+/*
+typedef	struct		s_pint;
+{
+	int		x0;
+	int		y0;
+	int		x1;
+	int		y1;
+	int		col1;
+	int		col2;
+	void	*ptr;
+	void	*win;
+}					t_pint;
+*/
+void				bresenham_fdf(int x0, int y0, int x1, int y1, void *ptr, void *win, int col);
 void				free_t_pixel(t_pixel ***pix);
 int					count_dim(char *str);
 int					check_fdf(char *str);

@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 15:12:51 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/16 16:51:13 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/16 19:26:46 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*dec_to_hexa(int n)
 ** gev the string col to atoi_base
 */
 
-int	rgb_to_col(int r, int b, int g)
+int	rgb_to_col(int r, int g, int b)
 {
 	char	*col;
 	char	*ptr;
@@ -52,12 +52,12 @@ int	rgb_to_col(int r, int b, int g)
 	int		re;
 
 	ptr = dec_to_hexa(r);
-	tmp = dec_to_hexa(b);
+	tmp = dec_to_hexa(g);
 	col = ft_strjoin(ptr,tmp);
 	free(ptr);
 	free(tmp);
 	tmp = col;
-	ptr = dec_to_hexa(g);
+	ptr = dec_to_hexa(b);
 	col = ft_strjoin(col, ptr);
 	free(tmp);
 	free(ptr);
@@ -68,6 +68,6 @@ int	rgb_to_col(int r, int b, int g)
 
 int main(int ac, char **av)
 {
-	printf("%d\n", rgb_to_col(255,255,255));
+	printf("%d\n", rgb_to_col(0,0,255));
 	return (0);
 }
