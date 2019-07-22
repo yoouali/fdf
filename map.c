@@ -6,7 +6,7 @@
 /*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 14:37:10 by akhossan          #+#    #+#             */
-/*   Updated: 2019/07/22 00:11:33 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/22 22:11:53 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	get_scale(t_mlx *mlx)
 		scaley++;
 	mlx->scale = (scalex < scaley ? scalex : scaley);
 	mlx->scale -= 1;
-	printf("scale: %d\n", mlx->scale);
 }
 
 void	translate(t_mlx *mlx)
@@ -39,7 +38,6 @@ void	translate(t_mlx *mlx)
 	yc = mlx->pixs[mlx->heigth - 1][0].y / 2;
 	xc = WIDTH / 2 - xc;
 	yc = HEIGTH / 2 - yc;
-	//printf("xc: %d, yc: %d\n", xc, yc);
 	i = -1;
 	while (++i < mlx->heigth)
 	{
@@ -82,10 +80,10 @@ void	render(t_mlx *mlx)
 	int		ymax;
 	int		ymin;
 
-	xmax = 0;
-	xmin = WIDTH;// fucking weird
-	ymax = 0;
-	ymin = HEIGTH;
+	xmax = mlx->proj[0][0].x;
+	xmin = mlx->proj[0][0].x;// fucking weird
+	ymax = mlx->proj[0][0].y;
+	ymin = mlx->proj[0][0].y;
 	i = -1;
 	while (++i < mlx->heigth)
 	{
@@ -105,13 +103,26 @@ void	render(t_mlx *mlx)
 	center_shape(mlx, round((xmax + xmin) / 2), round((ymax + ymin) / 2));
 }
 
-void	iso(t_mlx *mlx, int i, int j)
+void	iso(t_mlx *mlx)
 {
+	int		i;
+	int		j;
 
-	mlx->proj[i][j].x = (mlx->pixs[i][j].x - mlx->pixs[i][j].y)\
-			* cos(0.523599);
-	mlx->proj[i][j].y = -mlx->pixs[i][j].z +\
-	(mlx->pixs[i][j].x + mlx->pixs[i][j].y) * sin(0.523599);
+	i = 0;
+	while (mlx->pixs[i])
+	{
+		j = 0;
+		while (j < mlx->width)
+		{
+			mlx->proj[i][j].x = round((mlx->pixs[i][j].x - mlx->pixs[i][j].y) * \
+					cos(0.523599));
+			mlx->proj[i][j].y = round(-mlx->pixs[i][j].z +\
+					(mlx->pixs[i][j].x + mlx->pixs[i][j].y) * sin(0.523599));
+			mlx->proj[i][j].color = mlx->pixs[i][j].color;
+			j++;
+		}
+		i++;
+	}
 }
 
 void	project_map(t_mlx *mlx)
@@ -127,7 +138,7 @@ void	project_map(t_mlx *mlx)
 		{
 			mlx->pixs[i][j].x = mlx->pixs[i][j].x * mlx->scale;
 			mlx->pixs[i][j].y = mlx->pixs[i][j].y * mlx->scale;
-			mlx->pixs[i][j].z = mlx->pixs[i][j].z * 5;
+			mlx->pixs[i][j].z = mlx->pixs[i][j].z * 4;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 12:17:47 by akhossan          #+#    #+#             */
-/*   Updated: 2019/07/20 16:47:52 by akhossan         ###   ########.fr       */
+/*   Updated: 2019/07/22 22:08:59 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ typedef struct		s_mlx
 	//Camera options
 	int				zoom;
 	int				scale;
-	int				xoff;
-	int				yoff;
 	double			angle_x;
 	double			angle_y;
 }					t_mlx;
@@ -86,7 +84,7 @@ void			disp(char **s);
 void			dis_pixels(t_mlx *mlx);
 
 
-int		clone_pixels(t_mlx *mlx, int pjct);
+int		clone_pixels(t_mlx *mlx);
 t_mlx	*mlx_new(char *arg);
 void	ft_puterror(int err);
 void	draw_line(t_mlx *mlx, t_pixel p1, t_pixel p2);
@@ -96,7 +94,7 @@ int		get_color(t_param *param, t_pixel p1, t_pixel p2);
 int		get_light(int c1, int c2, double percentage);
 void	get_scale(t_mlx *mlx);
 void	render(t_mlx *mlx);
-void	iso(t_mlx *mlx, int i, int j);
+void	iso(t_mlx *mlx);
 void	translate(t_mlx *mlx);
 void	project_map(t_mlx *mlx);
 void	center_shape(t_mlx *mlx, int xc, int yc);
