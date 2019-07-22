@@ -3,68 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/11 07:56:49 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/11 08:27:51 by yoouali          ###   ########.fr       */
+/*   Created: 2019/07/10 18:54:13 by akhossan          #+#    #+#             */
+/*   Updated: 2019/07/11 11:08:05 by akhossan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int			ft_pow(int base, int n)
+int		ft_atoi_base(char *s, int base)
 {
-	int		re;
-	int		i;
+	static char	*charset = "0123456789ABCDEF";
+	int			i;
+	int			res;
+	int			len;
 
-	if (n < 1)
-		return (1);
 	i = 0;
-	re = 1;
-	while (i < n)
+	if (s[i] == '0' && s[i + 1] == 'x')
+		s += 2;
+	while (ft_contains(charset, s[i]))
+		i++;
+	len = i;
+	res = 0;
+	i = 0;
+	while (ft_contains(charset, s[i]))
 	{
-		re = re * base;
+		res += ft_indexof(charset, s[i]) * ft_pow(base, --len);
 		i++;
 	}
-	return (re);
-}
-
-static	int			get_index(char x, int base)
-{
-	char	*b;
-	int		i;
-
-	if (x >= 'A' && x <= 'Z')
-		x += 32;
-	i = 0;
-	b = "0123456789abcdef";
-	while (i < base && b[i] != x)
-		i++;
-	if (i == base)
-		return (0);
-	return (i);
-}
-
-int					ft_atoi_base(char *str, int base)
-{
-	int		re;
-	int		i;
-	int		j;
-
-	if (base == 10)
-		return (ft_atoi(str));
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
-		i++;
-	j = i;
-	while ((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'f')\
-			|| (str[i] >= 'A' && str[i] <= 'F'))
-		i++;
-	re = 0;
-	while (j < i)
-	{
-		re += get_index(str[j], base) * ft_pow(base, i - j - 1);
-		j++;
-	}
-	return (re);
+	return (res);
 }

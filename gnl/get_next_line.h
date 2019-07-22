@@ -3,19 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/19 02:32:50 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/11 05:21:39 by yoouali          ###   ########.fr       */
+/*   Created: 2019/04/06 22:04:56 by akhossan          #+#    #+#             */
+/*   Updated: 2019/04/30 19:51:43 by akhossan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 80
-# define FD_N 1024
-# include "../libft/libft.h"
 
-int	get_next_line(const int fd, char **line);
+# define ALLOC_LINE(line)		if(!(line = ft_strnew(0))) return (-1)
+# define ALLOC_OVERFLOW(over)	if(!(over = ft_strnew(BUFF_SIZE))) return (-1)
+# define BUFF_SIZE	32
+# define FD_MAX	1024
+
+# include <stdlib.h>
+# include "libft/libft.h"
+
+int			get_next_line(int fd, char **line);
+void		strjoinfree(char **s1, char *s2);
+void		strdupfree(char **dst, char *src);
+void		save_line(char **line, char **overflow, char *endl);
+int			read_line(int fd, char *buff, char **line, char **overflow);
 
 #endif

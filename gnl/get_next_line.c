@@ -3,68 +3,122 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/20 17:13:45 by yoouali           #+#    #+#             */
-/*   Updated: 2019/06/26 14:53:34 by yoouali          ###   ########.fr       */
+/*   Created: 2019/04/06 22:03:34 by akhossan          #+#    #+#             */
+/*   Updated: 2019/04/30 19:22:26 by akhossan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*get_line(char *tmp)
-{
-	int		d;
-	char	*line;
+/*
+** Joins s2 to s1 and frees the old s1
+*/
 
-	d = 0;
-	while (tmp[d] != '\n' && tmp[d])
-		d++;
-	line = malloc(sizeof(char) * (d + 1));
-	d = 0;
-	while (tmp[d] != '\n' && tmp[d])
+void		strjoinfree(char **s1, char *s2)
+{
+	char	*tmp;
+
+	if (s1 && *s1 && s2)
 	{
-		line[d] = tmp[d];
-		d++;
+		tmp = *s1;
+		*s1 = ft_strjoin(*s1, s2);
+		ft_strdel(&tmp);
 	}
-	line[d] = '\0';
-	return (line);
 }
 
-static char	*get_rest(char *tab)
+/*
+** Duplicates the string src into dst,
+** and frees the old dst
+*/
+
+void		strdupfree(char **dst, char *src)
 {
-	char	*rest;
+	char	*tmp;
+
+	if (dst && *dst && src)
+	{
+		tmp = *dst;
+		*dst = ft_strdup(src);
+		ft_strdel(&tmp);
+	}
+}
+
+/*
+** Joins the line form previous overflow, to first param
+** then update overflow from endl up to the end of overflow
+*/
+
+void		save_line(char **line, char **overflow, char *endl)
+{
+	endl[0] = 0;
+	strjoinfree(line, *overflow);
+	strdupfree(overflow, endl + 1);
+}
+
+/*
+** Reads a line and stores it to line arg
+** if there is overflow from previous reading
+** it's taken into consideration by joining it with line
+*/
+
+int			read_line(int fd, char *buff, char **line, char **overflow)
+{
+	int		flag;
 	char	*endl;
 
-	if (!(endl = ft_strchr(tab, '\n')))
-		return (ft_strdup(""));
-	rest = ft_strdup(endl + 1);
-	return (rest);
+	while ((flag = read(fd, buff, BUFF_SIZE)) > 0 || (flag == 0 && **overflow))
+	{
+		strjoinfree(overflow, buff);
+		if ((endl = ft_strchr(*overflow, '\n')))
+		{
+			save_line(line, overflow, endl);
+			return (1);
+		}
+		else
+		{
+			strjoinfree(line, *overflow);
+			ft_strclr(buff);
+			ft_strclr(*overflow);
+		}
+	}
+	if (!**overflow)
+		ft_strdel(overflow);
+	if (flag == 0 && **line)
+		return (1);
+	return (flag < 0 ? -1 : 0);
 }
 
-int			get_next_line(const int fd, char **line)
-{
-	static char	*tab[FD_N];
-	char		buff[BUFF_SIZE + 1];
-	char		*tmp;
-	int			red;
+/*
+** Reads from a file descriptor a hole line
+** we consider a line a series of characters
+** ending with '\n' (line break character)
+** it returns (1) when a line has been read,
+** (0) if EOF (END OF FILE) has been read
+** (-1) if an error occured when reading
+*/
 
-	if (fd < 0 || fd > FD_N || !line || BUFF_SIZE < 1)
+int			get_next_line(int fd, char **line)
+{
+	static char		*overflow[FD_MAX];
+	char			buff[BUFF_SIZE + 1];
+	char			*endl;
+	int				flag;
+
+	if (fd < 0 || !line || BUFF_SIZE < 1 || fd > FD_MAX)
 		return (-1);
-	if (!tab[fd])
-		tab[fd] = ft_strnew(1);
-	while (!ft_strchr(tab[fd], '\n') && (red = read(fd, buff, BUFF_SIZE)) > 0)
+	ALLOC_LINE(*line);
+	if (!overflow[fd])
+		ALLOC_OVERFLOW(overflow[fd]);
+	if (*overflow[fd] && (endl = ft_strchr(overflow[fd], '\n')))
 	{
-		buff[red] = '\0';
-		tmp = tab[fd];
-		tab[fd] = ft_strjoin(tab[fd], buff);
-		free(tmp);
+		save_line(line, &overflow[fd], endl);
+		return (1);
 	}
-	if (red < 1 && !*tab[fd])
-		return (red == -1 ? -1 : 0);
-	*line = get_line(tab[fd]);
-	tmp = tab[fd];
-	tab[fd] = get_rest(tab[fd]);
-	free(tmp);
-	return (1);
+	ft_bzero(buff, BUFF_SIZE + 1);
+	flag = read_line(fd, buff, line, &overflow[fd]);
+	if (flag <= 0)
+		ft_strdel(line);
+	return (flag);
 }

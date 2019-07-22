@@ -3,25 +3,38 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yoouali <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: akhossan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/07/11 05:42:44 by yoouali           #+#    #+#              #
-#    Updated: 2019/07/13 03:37:56 by yoouali          ###   ########.fr        #
+#    Created: 2019/07/03 20:42:53 by akhossan          #+#    #+#              #
+#    Updated: 2019/07/20 14:45:34 by akhossan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = fdf_proj/srcs/main.c fdf_proj/srcs/check.c gnl/get_next_line.c libft/libft.a fdf_proj/srcs/stock.c fdf_proj/srcs/free.c
-NAME = fdf
+NAME	:=	Fdf
 
-all : $(NAME)
-$(NAME) :
-	@ make -C libft
-	@ cc -Wall -Wextra -Werror -I /usr/include -o $(NAME) $(SRC) -L /usr/local/lib -lmlx -framework OpenGL -framework appKit
-clean :
-	@ make -C libft clean
+LFT		:= 	-lft -L./libft
 
-fclean : clean
-	@ make -C libft fclean
-	@ rm -rf $(NAME)
+LIBS	:=	-lmlx -framework OpenGl -framework Appkit
 
-re : fclean all
+CFLAGS	:=	-Werror -Wextra -Wall
+
+GNL		:=	gnl/get_next_line.c 
+
+SRC		:=	draw.c read_map.c main.c color.c dis_pixels.c map.c
+
+all: $(NAME)
+
+$(NAME):
+	@make re -C libft && make clean -C libft
+	#@printf "\033[91mLibft done\n"
+	@gcc $(CFALGS) $(SRC) $(GNL) $(LFT) $(LIBS) -o $(NAME)
+
+clean:
+	@make clean -C libft
+	@/bin/rm -rf *.o
+
+fclean: clean
+	@make -C libft fclean
+	@/bin/rm -rf $(NAME)
+
+re: fclean all 
