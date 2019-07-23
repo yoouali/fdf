@@ -6,7 +6,7 @@
 /*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 14:37:10 by akhossan          #+#    #+#             */
-/*   Updated: 2019/07/22 22:11:53 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/23 08:10:14 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,10 @@ void	iso(t_mlx *mlx)
 		j = 0;
 		while (j < mlx->width)
 		{
-			mlx->proj[i][j].x = round((mlx->pixs[i][j].x - mlx->pixs[i][j].y) * \
-					cos(0.523599));
+			mlx->proj[i][j].x = round((;mlx->pixs[i][j].x - mlx->pixs[i][j].y) * \
+					cos(0.5))
 			mlx->proj[i][j].y = round(-mlx->pixs[i][j].z +\
-					(mlx->pixs[i][j].x + mlx->pixs[i][j].y) * sin(0.523599));
+					(mlx->pixs[i][j].x + mlx->pixs[i][j].y) * sin(0.5));
 			mlx->proj[i][j].color = mlx->pixs[i][j].color;
 			j++;
 		}

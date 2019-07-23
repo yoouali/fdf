@@ -6,7 +6,7 @@
 /*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/19 19:43:45 by akhossan          #+#    #+#             */
-/*   Updated: 2019/07/19 22:27:48 by akhossan         ###   ########.fr       */
+/*   Updated: 2019/07/22 22:21:32 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		get_color(t_param *param, t_pixel p1, t_pixel p2)
 
 	if (p1.color == p2.color)
 		return (p1.color);
-	if (abs(p2.x - p1.x) > abs(p2.y - p1.y))
+	if (fabs(p2.x - p1.x) > fabs(p2.y - p1.y))
 		percentage = percent(p1.x, p2.x, param->x0);
 	else
 		percentage = percent(p1.y, p2.y, param->y0);

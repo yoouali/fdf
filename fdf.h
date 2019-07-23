@@ -6,7 +6,7 @@
 /*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 12:17:47 by akhossan          #+#    #+#             */
-/*   Updated: 2019/07/22 22:08:59 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/22 22:22:05 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 
 typedef struct	s_pixel
 {
-	int			x;
-	int			y;
-	int			z;
+	double			x;
+	double			y;
+	double			z;
 	int			color;
 }				t_pixel;
 

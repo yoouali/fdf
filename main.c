@@ -6,7 +6,7 @@
 /*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 16:41:22 by akhossan          #+#    #+#             */
-/*   Updated: 2019/07/22 22:17:45 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/23 08:10:13 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ t_mlx	*mlx_new(char *arg)
 	mlx->cols = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->size,\
 			&mlx->endian);
 	mlx->pixs = read_file(arg, mlx->width, mlx->heigth);
-	mlx->angle_x = 0.0;
-	mlx->angle_y = 0.0;
+	mlx->angle_x = 0.523599;
+	mlx->angle_y = 0.523599;
 	get_scale(mlx);	//Outputs the scale according to window dimensions
 	project_map(mlx);//Changes pixes coordinates
 	translate(mlx); // Centers the shapes (pixes coordinates)
@@ -91,6 +91,8 @@ void	move_shape(t_mlx *mlx, int sx, int sy, int sz)
 		{
 			mlx->proj[i][j].x += sx;
 			mlx->proj[i][j].y += sy;
+		printf("x: %f\n", mlx->proj[i][j].x);
+		printf("y: %f\n", mlx->proj[i][j].y);
 			j++;
 		}
 		i++;
@@ -206,6 +208,8 @@ int		key_event(int key, t_mlx *mlx)
 		if (key == 126)
 			move_shape(mlx, 0, -10, 0);
 		draw_map(mlx);
+		iso(mlx);
+		render(mlx);
 		mlx_put_image_to_window(mlx->pan, mlx->win, mlx->img, 0, 0);
 	}
 	if (key == 116 || key == 121)
@@ -215,8 +219,6 @@ int		key_event(int key, t_mlx *mlx)
 			z_up_down(mlx, 3);
 		if (key == 121)
 			z_up_down(mlx, -3);
-		iso(mlx);
-		render(mlx);
 		draw_map(mlx);
 		mlx_put_image_to_window(mlx->pan, mlx->win, mlx->img, 0, 0);
 	}
@@ -226,21 +228,19 @@ int		key_event(int key, t_mlx *mlx)
 		if (key == 	91 || key == 84)
 		{
 			if (key == 91)
-				mlx->angle_x = 0.3;
+				mlx->angle_x = 0.0174533;
 			else
-				mlx->angle_x = 0.3;
+				mlx->angle_x = -0.0174533;
 			rotate_x(mlx);
 		}
 		if (key == 86 || key == 88)
 		{
 			if (key == 86)
-				mlx->angle_y = 0.3;
+				mlx->angle_y = 0.0174533;
 			else
-				mlx->angle_y = 0.3;
+				mlx->angle_y = -0.0174533;
 			rotate_y(mlx);
 		}
-		get_scale(mlx);
-		translate(mlx);
 		iso(mlx);
 		render(mlx);
 		draw_map(mlx);

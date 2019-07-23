@@ -6,7 +6,7 @@
 /*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 21:19:29 by akhossan          #+#    #+#             */
-/*   Updated: 2019/07/22 14:49:29 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/22 22:28:39 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	init_params(t_param *param, t_pixel p1, t_pixel p2)
 	param->y0 = p1.y;
 	param->x1 = p2.x;
 	param->y1 = p2.y;
-	param->dx = abs(p2.x - p1.x);
-	param->dy = -abs(p2.y - p1.y);
+	param->dx = fabs(p2.x - p1.x);
+	param->dy = -fabs(p2.y - p1.y);
 	param->sx = p1.x < p2.x ? 1 : -1;
 	param->sy = p1.y < p2.y ? 1 : -1;
 	param->err = param->dx + param->dy;
@@ -40,14 +40,13 @@ void	draw_line(t_mlx *mlx, t_pixel p1, t_pixel p2)
 		//Here we must create a function that sets the pixels to image
 		x = (param.x0) * mlx->bpp / 8;
 		y = (param.y0) * mlx->size;
-	if (param.x0 >= 0 && param.x0 < WIDTH && param.y0 >= 0 && param.y0 < HEIGTH)
-	{
-		mlx->cols[y + x] = param.col;
-		mlx->cols[++y + x] = param.col >> 8;
-		mlx->cols[++y + x] = param.col >> 16;
-		mlx->cols[++y + x] = 0;
-	}
-		//mlx_pixel_put(mlx->pan, mlx->win, param.x0, param.y0, param.col);
+		if (param.x0 >= 0 && param.x0 < WIDTH && param.y0 >= 0 && param.y0 < HEIGTH)
+		{
+			mlx->cols[y + x] = param.col;
+			mlx->cols[++y + x] = param.col >> 8;
+			mlx->cols[++y + x] = param.col >> 16;
+			mlx->cols[++y + x] = 0;
+		}
 		param.err2 = 2 * param.err;
 		if (param.err2 >= param.dy)
 		{
