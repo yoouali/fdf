@@ -6,7 +6,7 @@
 /*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 22:04:56 by akhossan          #+#    #+#             */
-/*   Updated: 2019/04/30 19:51:43 by akhossan         ###   ########.fr       */
+/*   Updated: 2019/07/19 07:06:39 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define FD_MAX	1024
 
 # include <stdlib.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 int			get_next_line(int fd, char **line);
 void		strjoinfree(char **s1, char *s2);

@@ -6,35 +6,52 @@
 #    By: akhossan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/03 20:42:53 by akhossan          #+#    #+#              #
-#    Updated: 2019/07/20 14:45:34 by akhossan         ###   ########.fr        #
+#    Updated: 2019/07/24 10:17:53 by yoouali          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:=	Fdf
+NAME	=	Fdf
 
-LFT		:= 	-lft -L./libft
+LFT		= 	libft/libft.a
 
-LIBS	:=	-lmlx -framework OpenGl -framework Appkit
+LIBS	=	-lmlx -framework OpenGl -framework Appkit
 
-CFLAGS	:=	-Werror -Wextra -Wall
+CFLAGS	=	-Werror -Wextra -Wall
 
-GNL		:=	gnl/get_next_line.c 
+GNL		=	get_next_line.o 
 
-SRC		:=	draw.c read_map.c main.c color.c dis_pixels.c map.c
+SRCDIR	=	fdf_proj/srcs/
+
+SRC		=	$(SRCDIR)draw.c $(SRCDIR)read.c $(SRCDIR)main.c $(SRCDIR)color.c\
+   		   $(SRCDIR)map.c $(SRCDIR)leak.c $(SRCDIR)proj.c $(SRCDIR)events.c
+
+OBJ		=	draw.o read.o main.o color.o map.o leak.o proj.o events.o
+   		    
 
 all: $(NAME)
 
-$(NAME):
-	@make re -C libft && make clean -C libft
-	#@printf "\033[91mLibft done\n"
-	@gcc $(CFALGS) $(SRC) $(GNL) $(LFT) $(LIBS) -o $(NAME)
+$(GNL) : gnl/get_next_line.c
+	@printf "\033[92mGenerating gnl object file\n\033[15m"
+	gcc -c $(CFLAGS) $^
+
+$(OBJ) : $(SRC)
+	@printf "\033[92mGenerating object files\n\033[15m"
+	gcc $(CFLAGS) -c $^ 
+
+$(LFT) :
+	@printf "\033[92mCompiling Libft\n"\033[15m
+	make -C libft
+
+$(NAME): $(LFT) $(GNL) $(OBJ)
+	@printf "\033[92mCompiling Fdf\n"\033[15m
+	gcc $(CFALGS) $^ $(LIBS) -o $(NAME)
 
 clean:
-	@make clean -C libft
-	@/bin/rm -rf *.o
+	make clean -C libft
+	/bin/rm -rf $(OBJ) $(GNL)
 
 fclean: clean
-	@make -C libft fclean
-	@/bin/rm -rf $(NAME)
+	make -C libft fclean
+	/bin/rm -rf $(NAME)
 
 re: fclean all 
