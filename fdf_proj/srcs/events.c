@@ -6,7 +6,7 @@
 /*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 16:41:22 by akhossan          #+#    #+#             */
-/*   Updated: 2019/07/24 22:10:14 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/27 22:00:48 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,11 @@ int		key_event(int key, t_mlx *mlx)
 {
 	if (key == 53)
 		exit_fdf(mlx);
+	if (!(key >= 123 && key <= 126) && key != 35 && key != 34 && key != 2 &&\
+			key != 32 && key != 78 && key != 69)
+		return (1);
 	if (key == 35 || key == 34)
-	{
-		reset_image(mlx);
-		if (key == 35)
-			mlx->projn = 2;
-		if (key == 34)
-			mlx->projn = 1;
-		get_proj(mlx);
-		mlx->xm = 0;
-		mlx->ym = 0;
-	}
+		togle_proj(mlx, key);
 	if (mlx->projn == 1 && (key == 32 || key == 2))
 		z_up_down(mlx, key);
 	if (key >= 123 && key <= 126)

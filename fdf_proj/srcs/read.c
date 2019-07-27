@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/19 07:30:06 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/27 11:20:28 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/27 21:51:53 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ t_pixel	**to_pixel(int fd, int width, int heigth)
 	}
 	pixels[i] = NULL;
 	if (ret == -1)
-	{
-		del_pixel(pixels);
 		return (NULL);
-	}
 	return (pixels);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 07:11:34 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/27 11:19:39 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/27 22:01:47 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,16 @@ void		get_scale(t_mlx *mlx)
 		scaley++;
 	scale = (scalex < scaley ? scalex : scaley);
 	up_scale(mlx, scale);
+}
+
+void		togle_proj(t_mlx *mlx, int key)
+{
+	reset_image(mlx);
+	if (key == 35)
+		mlx->projn = 2;
+	if (key == 34)
+		mlx->projn = 1;
+	get_proj(mlx);
+	mlx->xm = 0;
+	mlx->ym = 0;
 }

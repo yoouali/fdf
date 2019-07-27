@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/19 07:07:31 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/27 11:37:54 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/27 22:01:45 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
-# include <stdio.h>
 # define WIDTH	2000
 # define HEIGTH	1200
 # define TITLE	"Fdf"
@@ -74,7 +73,6 @@ typedef	struct	s_render
 	int		ymax;
 }				t_render;
 
-void			dis_pixels(t_mlx *mlx);
 void			ft_puterror(int err, t_mlx *mlx);
 int				get_dim(char *file, t_mlx *mlx);
 t_pixel			*fill_pixels_row(int i, int width, char **split);
@@ -103,5 +101,6 @@ void			destroy_all(t_mlx *mlx, int err);
 void			draw_usage(t_mlx *mlx);
 void			draw_zoom_offset_info(t_mlx *mlx);
 void			z_up_down(t_mlx *mlx, int key);
+void			togle_proj(t_mlx *mlx, int key);
 
 #endif

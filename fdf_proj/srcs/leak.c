@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:45:44 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/27 11:25:31 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/27 21:52:12 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_pixel	**to_pixel_leak(char **split, t_pixel **pix, char *line)
 {
+	free(line);
 	del_pixel(pix);
 	del_split(split);
-	free(line);
 	return (pix);
 }
 
@@ -42,7 +42,6 @@ void	del_split(char **split)
 	while (split[i])
 		free(split[i++]);
 	free(split);
-	split = NULL;
 }
 
 void	destroy_all(t_mlx *mlx, int er)
