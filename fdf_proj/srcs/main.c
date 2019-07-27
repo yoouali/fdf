@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/19 07:15:43 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/24 23:13:20 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/27 11:37:48 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,24 @@ t_mlx	*mlx_new(char *file)
 	return (mlx);
 }
 
+void	dis_pixels(t_mlx *mlx)
+{
+	int		i =  0;
+	int		j;
+
+	while (i < mlx->heigth)
+	{
+		j = 0;
+		while (j < mlx->width)
+		{
+			printf("%f ", mlx->proj[i][j].z);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+}
+
 int		main(int ac, char **av)
 {
 	t_mlx	*mlx;
@@ -73,8 +91,10 @@ int		main(int ac, char **av)
 		ft_puterror(3, NULL);
 	close(fd);
 	mlx = mlx_new(av[1]);
+	dis_pixels(mlx);
 	draw_map(mlx);
 	mlx_put_image_to_window(mlx->pan, mlx->win, mlx->img, 0, 0);
+	draw_usage(mlx);
 	draw_usage(mlx);
 	draw_zoom_offset_info(mlx);
 	mlx_key_hook(mlx->win, key_event, mlx);
