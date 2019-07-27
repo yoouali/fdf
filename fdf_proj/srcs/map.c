@@ -6,7 +6,7 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 07:11:34 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/24 19:54:19 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/27 11:19:39 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_pixel		**clone_pixs(t_mlx *mlx)
 	while (i < mlx->heigth)
 	{
 		if (!(mlx->proj[i] = (t_pixel*)malloc(sizeof(t_pixel) * mlx->width)))
-			return (clone_pixs_leak(mlx, i));
+			return (NULL);
 		i++;
 	}
 	mlx->proj[i] = NULL;

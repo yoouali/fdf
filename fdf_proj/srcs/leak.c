@@ -6,27 +6,18 @@
 /*   By: yoouali <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 17:45:44 by yoouali           #+#    #+#             */
-/*   Updated: 2019/07/24 23:13:23 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/27 11:25:31 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-t_pixel	**to_pixel_leak(char **split, t_pixel **pix, int r, char *line)
+t_pixel	**to_pixel_leak(char **split, t_pixel **pix, char *line)
 {
-	pix[r] = NULL;
 	del_pixel(pix);
 	del_split(split);
 	free(line);
 	return (pix);
-}
-
-t_pixel	**clone_pixs_leak(t_mlx *mlx, int r)
-{
-	mlx->proj[r] = NULL;
-	del_pixel(mlx->proj);
-	del_pixel(mlx->pixs);
-	return (NULL);
 }
 
 void	del_pixel(t_pixel **pixel)
