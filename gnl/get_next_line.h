@@ -6,7 +6,7 @@
 /*   By: akhossan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 22:04:56 by akhossan          #+#    #+#             */
-/*   Updated: 2019/07/19 07:06:39 by yoouali          ###   ########.fr       */
+/*   Updated: 2019/07/28 14:57:09 by yoouali          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define ALLOC_LINE(line)		if(!(line = ft_strnew(0))) return (-1)
 # define ALLOC_OVERFLOW(over)	if(!(over = ft_strnew(BUFF_SIZE))) return (-1)
-# define BUFF_SIZE	32
+# define BUFF_SIZE	100
 # define FD_MAX	1024
 
 # include <stdlib.h>
